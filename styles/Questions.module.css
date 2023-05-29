@@ -1,0 +1,67 @@
+.header {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  font-size: 34px;
+}
+
+.content {
+  margin: 0 16px 0;
+}
+
+.card {
+  margin: 20px auto;
+  width: 70%;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.cardCorrect {
+  background-color: lightgreen;
+}
+
+.cardWrong {
+  background-color: lightcoral;
+}
+
+.option {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.optionCorrect {
+  background-color: rgb(195, 255, 195);
+  color: white;
+}
+
+.optionWrong {
+  background-color: rgb(255, 0, 0);
+  color: white;
+}
+.submitButton {
+  margin-top: 10px;
+  background: #BEAEE2;
+}
+
+.footer {
+  text-align: center;
+}
+
+.resultText {
+  margin-top: 10px;
+  font-weight: bold;
+}
+.timer {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  font-size: 24px;
+  font-weight: bold;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  backdrop-filter: blur(5px);
+  pointer-events: none;
+}
