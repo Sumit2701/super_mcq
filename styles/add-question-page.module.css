@@ -1,0 +1,25 @@
+.add-question-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.add-question-container h1 {
+  margin-bottom: 20px;
+}
+
+.add-question-container .ant-form-item-label {
+  font-weight: bold;
+}
+
+.add-question-container .ant-form-item-control-input-content {
+  display: flex;
+  align-items: center;
+}
+
+.add-question-container .ant-btn-primary {
+  margin-top: 10px;
+}

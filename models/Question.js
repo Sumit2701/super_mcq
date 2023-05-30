@@ -3,20 +3,24 @@ const mongoose = require('mongoose');
 const questionSchema = new mongoose.Schema({
   question: {
     type: String,
-    required: true
+    required: true,
   },
   options: {
     type: [String],
-    required: true
+    required: true,
   },
   correctAnswer: {
     type: String,
-    required: true
+    required: true,
   },
   date: {
     type: Date,
-    required: true
-  }
+    required: true,
+  },
+  quiz: {
+    type: String,
+    required: true,
+  },
 });
 
 export default mongoose.models.Question || mongoose.model('Question', questionSchema);
