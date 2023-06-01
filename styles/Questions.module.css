@@ -24,11 +24,11 @@
   }
 }
 .cardCorrect {
-  background-color: lightgreen;
+  background-color: rgb(183, 255, 183);
 }
 
 .cardWrong {
-  background-color: lightcoral;
+  background-color: #ffafaf;
 }
 
 .option {
@@ -36,15 +36,7 @@
   margin-bottom: 10px;
 }
 
-.optionCorrect {
-  background-color: rgb(195, 255, 195);
-  color: white;
-}
 
-.optionWrong {
-  background-color: rgb(255, 0, 0);
-  color: white;
-}
 .submitButton {
   margin-top: 10px;
   background: #BEAEE2;
@@ -55,7 +47,7 @@
 }
 
 .resultText {
-  margin-top: 10px;
+  margin-top: 20px;
   font-weight: bold;
 }
 .timer {

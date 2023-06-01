@@ -14,11 +14,15 @@ const { Header, Content, Footer } = Layout;
   const [timer, setTimer] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
   const router = useRouter();
+  const [submitted, setSubmitted] = useState(Array(questions.length).fill(false));
+
   const quiz = router.query.quiz;
   useEffect(() => {
-    const quiz = router.query.quiz; // Get the selected quiz name from the query parameter
-    if (quiz) {
-      fetchQuestions(quiz);
+    const quiz = router.query.quiz;
+    const numQuestions=router.query.numQuestions // Get the selected quiz name from the query parameter
+    console.log(quiz,numQuestions)
+    if (quiz && numQuestions) {
+      fetchQuestions(quiz,numQuestions);
     }
   }, [router.query.quiz]);
 
@@ -63,12 +67,11 @@ const { Header, Content, Footer } = Layout;
   };
   
 
-  const fetchQuestions = async (quiz) => {
+  const fetchQuestions = async (quiz,numQuestions) => {
     try {
-      const response = await fetch(`/api/questions?quiz=${quiz}`);
+      const response = await fetch(`/api/questions?quiz=${quiz}&numQuestions=${numQuestions}`);
       const data = await response.json();
       setQuestions(data);
-      console.log("this is data"+data)
       // if(data.length<=0){ const href = `/`;
       // router.push(href);}
     } catch (error) {
@@ -82,40 +85,35 @@ const { Header, Content, Footer } = Layout;
       [questionIndex]: true,
 
     }));
-    const score = calculateScore();
-    console.log(score) 
+    const newSubmitted = [...submitted];
+    newSubmitted[questionIndex] = true;
+    setSubmitted(newSubmitted);
   };
 
   const handleOptionChange = (questionIndex, optionIndex) => {
     setSelectedOptions((prevState) => ({
       ...prevState,
       [questionIndex]: optionIndex,
+
     }));
+
   };
 
   const getOptionResultText = (questionIndex, optionIndex) => {
     if (showResults[questionIndex] && selectedOptions[questionIndex] === optionIndex) {
       const selectedOption = questions[questionIndex].options[selectedOptions[questionIndex]];
       const correctAnswer = questions[questionIndex].correctAnswer;
-      return selectedOption === correctAnswer ? 'Right' : 'Wrong';
+      return selectedOption === correctAnswer ? `Right : ${questions[questionIndex].correctAnswer}` : `Wrong, Correct Answer: ${questions[questionIndex].correctAnswer}`;
     }
     return '';
   };
 
-  const getOptionColor = (questionIndex, optionIndex) => {
-    if (showResults[questionIndex] && selectedOptions[questionIndex] === optionIndex) {
-      const selectedOption = questions[questionIndex].options[selectedOptions[questionIndex]];
-      const correctAnswer = questions[questionIndex].correctAnswer;
-      return selectedOption === correctAnswer ? styles.optionCorrect : styles.optionWrong;
-    }
-    return '';
-  };
 
   const getQuestionCardStyle = (questionIndex) => {
     if (showResults[questionIndex]) {
       const selectedOption = questions[questionIndex].options[selectedOptions[questionIndex]];
       const correctAnswer = questions[questionIndex].correctAnswer;
-      return selectedOption === correctAnswer ? styles.optionCorrect : styles.optionWrong;
+      return selectedOption === correctAnswer ? styles.cardCorrect : styles.cardWrong;
     }
 
     return {};
@@ -154,7 +152,7 @@ const { Header, Content, Footer } = Layout;
                     in={showResults[questionIndex] && selectedOptions[questionIndex] === optionIndex}
                   >
                     <Radio
-                      className={`${styles.option} ${getOptionColor(questionIndex, optionIndex)}`}
+                      className={`${styles.option}`}
                       key={optionIndex}
                       value={optionIndex}
                     >
@@ -168,9 +166,13 @@ const { Header, Content, Footer } = Layout;
                   {getOptionResultText(questionIndex, selectedOptions[questionIndex])}
                 </div>
               )}
-              <Button onClick={() => handleSubmit(questionIndex)} className={styles.submitButton}>
-                Submit
-              </Button>
+             <Button
+  onClick={() => handleSubmit(questionIndex)}
+  className={styles.submitButton}
+  disabled={submitted[questionIndex]} // Disable if the question is already submitted
+>
+  Submit
+</Button>
             </Card>
           ))}
         </Content>
