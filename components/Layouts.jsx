@@ -1,78 +1,57 @@
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useState } from 'react';
-const items = [
-  {
-    label: 'Navigation One',
-    key: 'mail',
-    icon: <MailOutlined />,
-  },
-  {
-    label: 'Navigation Two',
-    key: 'app',
-    icon: <AppstoreOutlined />,
-  },
-  {
-    label: 'Navigation Two',
-    key: 'app',
-    icon: <AppstoreOutlined />,
-  },
-  {
-    label: 'Navigation Two',
-    key: 'app',
-    icon: <AppstoreOutlined />,
-    disabled: true,
-  },
-  {
-    label: 'Navigation Three - Submenu',
-    key: 'SubMenu',
-    icon: <SettingOutlined />,
-    children: [
-      {
-        type: 'group',
-        label: 'Item 1',
-        children: [
-          {
-            label: 'Option 1',
-            key: 'setting:1',
-          },
-          {
-            label: 'Option 2',
-            key: 'setting:2',
-          },
-        ],
-      },
-      
-      {
-        type: 'group',
-        label: 'Item 2',
-        children: [
-          {
-            label: 'Option 3',
-            key: 'setting:3',
-          },
-          {
-            label: 'Option 4',
-            key: 'setting:4',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    label: (
-      <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-        Navigation Four - Link
-      </a>
-    ),
-    key: 'alipay',
-  },
-];
-export const Navbar = ({children}) => {
+import Link from 'next/link';
+const { SubMenu } = Menu;
+
+export const Navbar = ({ children }) => {
   const [current, setCurrent] = useState('mail');
-  const onClick = (e) => {
-    console.log('click ', e);
+
+  const handleClick = (e) => {
     setCurrent(e.key);
   };
-  return (<div className='container'> <Menu theme="light" style={{backgroundColor:'#CDF0EA' }}   onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />{children}</div> );
+
+  return (
+    <div className='container'>
+     <Menu
+        theme='dark'
+        mode='horizontal'
+        selectedKeys={[current]}
+        onClick={handleClick}
+        style={{ backgroundColor: '#BEAEE2', display: 'flex', justifyContent: 'center' }}
+      >
+     
+        <Menu.Item
+          key='alipay'
+          style={{ backgroundColor: '#BEAEE2', color: 'white' }}
+        >
+          <Link
+            href='/'
+            rel='noopener noreferrer'
+          >
+            Super Quizer
+          </Link>
+        </Menu.Item>
+        <Menu.Item key='app' style={{ backgroundColor: '#BEAEE2' }}>
+          Navigation Two
+        </Menu.Item>
+        <Menu.Item key='SubMenu' style={{ backgroundColor: '#BEAEE2' }}>
+          Navigation Three - Submenu
+        </Menu.Item>
+        <SubMenu
+          title='Navigation Four - Link'
+          style={{ backgroundColor: '#BEAEE2' }}
+        >
+          <Menu.Item key='setting:1'>Option 1</Menu.Item>
+          <Menu.Item key='setting:2'>Option 2</Menu.Item>
+          <Menu.Item key='setting:3'>Option 3</Menu.Item>
+          <Menu.Item key='setting:4'>Option 4</Menu.Item>
+        </SubMenu>
+        <Menu.Item key='mail' style={{ backgroundColor: '#BEAEE2' }}>
+       navbar  </Menu.Item>
+      </Menu>
+      {children}
+    </div>
+  );
 };
+
+export default Navbar;

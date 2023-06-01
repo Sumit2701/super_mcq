@@ -9,10 +9,8 @@ handler.use(middleware);
 handler.get(async (req, res) => {
   try {
     const quiz=req.query;
-    console.log(quiz)
       const questions = await Question.find(quiz);
       res.json(questions);
-      console.log(questions)
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

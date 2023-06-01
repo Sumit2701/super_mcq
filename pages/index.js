@@ -6,8 +6,6 @@ import axios from 'axios';
 
 const { Header, Content, Footer } = Layout;
 
-
-
 export default function Home() {
   const [quizOptions, setQuizOptions] = useState([]);
   const router = useRouter();

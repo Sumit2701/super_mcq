@@ -19,48 +19,49 @@ const { Header, Content, Footer } = Layout;
     const quiz = router.query.quiz; // Get the selected quiz name from the query parameter
     if (quiz) {
       fetchQuestions(quiz);
-      console.log()
     }
   }, [router.query.quiz]);
 
-  // useEffect(() => {
-  //   setTotalTime(questions.length * 60); // Assuming 60 seconds per question
+  useEffect(() => {
+    setTotalTime(questions.length * 6); // Assuming 60 seconds per question
 
-  //   const interval = setInterval(() => {
-  //     setTimer((prevTimer) => prevTimer + 1);
-  //   }, 1000);
+    const interval = setInterval(() => {
+      setTimer((prevTimer) => prevTimer + 1);
+    }, 1000);
 
-  //   if (timer >totalTime) {
-  //     clearInterval(interval);
-  //     navigateToResults(); // Navigate to the results page
-  //   }
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [questions, timer, totalTime]);
+    if (timer >totalTime) {
+      clearInterval(interval);
+      navigateToResults(); // Navigate to the results page
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [questions, timer, totalTime]);
 
 
   const navigateToResults = () => {
-    const score = calculateScore(); // Implement your own logic to calculate the score
-    const href = `/Result?score=${score}`;
+    const score = calculateScore();
+    console.log(score) // Implement your own logic to calculate the score
+    const href = `/Result?score=${score}/${questions.length}`;
     router.push(href); // Navigate to the results page with the score as a query parameter
   };
   
   const calculateScore = () => {
     let score = 0;
-
-    // Iterate over each question
+  
     questions.forEach((question, questionIndex) => {
       const selectedOptionIndex = selectedOptions[questionIndex];
-      const correctOptionIndex = question.correctAnswer;
-
-      if (selectedOptionIndex === correctOptionIndex) {
-        score++; // Increment the score if the selected option is correct
+      const selectedOptionValue = question.options[selectedOptionIndex];
+      const correctAnswer = question.correctAnswer;
+  
+      if (showResults[questionIndex] && selectedOptionValue === correctAnswer) {
+        score++;
       }
     });
-
+   console.log(score)
     return score;
   };
+  
 
   const fetchQuestions = async (quiz) => {
     try {
@@ -79,7 +80,10 @@ const { Header, Content, Footer } = Layout;
     setShowResults((prevResults) => ({
       ...prevResults,
       [questionIndex]: true,
+
     }));
+    const score = calculateScore();
+    console.log(score) 
   };
 
   const handleOptionChange = (questionIndex, optionIndex) => {
@@ -179,3 +183,101 @@ const QuestionsPage = () => {
   return <Questions />;
 };
 export default QuestionsPage;
+
+
+
+// return ( <Navbar>
+//   <div>
+    
+//     <Layout style={{ backgroundColor: '#F9F9F9' }}>
+//     <Header style={{ backgroundColor: '#F9F9F9', textAlign: 'center' }}>
+//         <h1 style={{ color: 'Black', fontSize: '28px' }}>{quiz}</h1>
+//       </Header>
+//       <Content className={styles.content}>
+//       <div className={`${styles.timer} ${styles.mobileTimer}`}>
+// {formatTime(totalTime - timer)}
+// </div>
+// {questions.map((question, questionIndex) => (
+// <Card
+// key={questionIndex}
+// className={`${styles.card} ${getQuestionCardStyle(questionIndex)}`}
+// title={<div className={styles.questionTitle}>{question.question}</div>}
+// >
+//     <Radio.Group
+//       onChange={(e) => handleOptionChange(questionIndex, e.target.value)}
+//       value={selectedOptions[questionIndex]}
+//     >
+//       {question.options.map((option, optionIndex) => (
+//         <CSSTransition
+//           key={optionIndex}
+//           classNames="option"
+//           timeout={300}
+//           in={showResults[questionIndex] && selectedOptions[questionIndex] === optionIndex}
+//         >
+//           <Radio
+//             className={`${styles.option} ${getOptionColor(questionIndex, optionIndex)}`}
+//             key={optionIndex}
+//             value={optionIndex}
+//           >
+//             {option}
+//           </Radio>
+//         </CSSTransition>
+//       ))}
+//     </Radio.Group>
+//     {showResults[questionIndex] && (
+//       <div className={styles.resultText}>
+//         {getOptionResultText(questionIndex, selectedOptions[questionIndex])}
+//       </div>
+//     )}
+//     <Button onClick={() => handleSubmit(questionIndex)} className={styles.submitButton}>
+//       Submit
+//     </Button>
+//   </Card>
+// ))}
+// </Content>
+
+//       {/* <Content className={styles.content}>
+//         <div className={styles.timer}>{formatTime(totalTime - timer)}</div>
+//         {questions.map((question, questionIndex) => (
+//           <Card
+//             key={questionIndex}
+//             className={`${styles.card} ${getQuestionCardStyle(questionIndex)}`}
+//             title={question.question}
+//           >
+//             <Radio.Group
+//               onChange={(e) => handleOptionChange(questionIndex, e.target.value)}
+//               value={selectedOptions[questionIndex]}
+//             >
+//               {question.options.map((option, optionIndex) => (
+//                 <CSSTransition
+//                   key={optionIndex}
+//                   classNames="option"
+//                   timeout={300}
+//                   in={showResults[questionIndex] && selectedOptions[questionIndex] === optionIndex}
+//                 >
+//                   <Radio
+//                     className={`${styles.option} ${getOptionColor(questionIndex, optionIndex)}`}
+//                     key={optionIndex}
+//                     value={optionIndex}
+//                   >
+//                     {option}
+//                   </Radio>
+//                 </CSSTransition>
+//               ))}
+//             </Radio.Group>
+//             {showResults[questionIndex] && (
+//               <div className={styles.resultText}>
+//                 {getOptionResultText(questionIndex, selectedOptions[questionIndex])}
+//               </div>
+//             )}
+//             <Button onClick={() => handleSubmit(questionIndex)} className={styles.submitButton}>
+//               Submit
+//             </Button>
+//           </Card>
+//         ))}
+//       </Content> */}
+//       <Footer className={styles.footer}>Supper quizer</Footer>
+//     </Layout>
+//   </div></Navbar>
+// );
+// };
