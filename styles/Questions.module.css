@@ -94,3 +94,11 @@
     text-overflow: initial;
   }
 }
+.optionCorrect {
+  background-color:  rgba(255, 255, 255, 0.28);;
+  border-style: solid,0.2px;  
+  border-color: rgb(0, 0, 0);  
+  border-radius: 2px; /* Green color for correct option */
+  padding: 2px;
+}
+
