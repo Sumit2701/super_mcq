@@ -91,11 +91,12 @@ const { Header, Content, Footer } = Layout;
   };
 
   const handleOptionChange = (questionIndex, optionIndex) => {
+    if( !submitted[questionIndex]){
     setSelectedOptions((prevState) => ({
       ...prevState,
       [questionIndex]: optionIndex,
 
-    }));
+    }));}
 
   };
 
@@ -115,7 +116,6 @@ const { Header, Content, Footer } = Layout;
       const correctAnswer = questions[questionIndex].correctAnswer;
       return selectedOption === correctAnswer ? styles.cardCorrect : styles.cardWrong;
     }
-
     return {};
   };
 
