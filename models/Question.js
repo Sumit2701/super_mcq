@@ -21,6 +21,18 @@ const questionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  hasImage:{
+    type:Boolean,
+  },
+  imageUrl:{
+    type:String,
+  },
+  hasExplanation:{
+    type:Boolean,
+  },
+  explanation:{
+    type:String,
+  }
 });
 
 export default mongoose.models.Question || mongoose.model('Question', questionSchema);

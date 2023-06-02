@@ -102,3 +102,16 @@
   padding: 2px;
 }
 
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.imageContainer img {
+  max-width: 100%;
+  height: auto;
+}
+.question {
+  white-space: pre-wrap;
+}
