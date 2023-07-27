@@ -173,7 +173,7 @@ const Questions = () => {
               >
                 {" "}
                 <div className={styles.imageContainer}>
-                  {question.hasImage && (
+                  {false && (
                     <img src={question.imageUrl} alt="Question Image" />
                   )}
                 </div>
