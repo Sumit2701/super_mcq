@@ -29,7 +29,7 @@ const Questions = () => {
   }, [router.query.quiz]);
 
   useEffect(() => {
-    setTotalTime(questions.length * 6); // Assuming 60 seconds per question
+    setTotalTime(questions.length * 60); // Assuming 60 seconds per question
 
     const interval = setInterval(() => {
       setTimer((prevTimer) => prevTimer + 1);
@@ -177,42 +177,33 @@ const Questions = () => {
                     <img src={question.imageUrl} alt="Question Image" />
                   )}
                 </div>
-                <Radio.Group
+                <Radio.Group 
                   onChange={(e) =>
                     handleOptionChange(questionIndex, e.target.value)
                   }
                   value={selectedOptions[questionIndex]}
                 >
-                  {question.options.map((option, optionIndex) => (
-                    <CSSTransition
-                      key={optionIndex}
-                      classNames="option"
-                      timeout={300}
-                      in={
-                        showResults[questionIndex] &&
-                        selectedOptions[questionIndex] === optionIndex
-                      }
-                    >
-                      <Radio
-                        className={`${styles.option}`}
-                        key={optionIndex}
-                        value={optionIndex}
-                      >
-                        <p
-                          className={`${getCorrectOptionStyle(
-                            question,
-                            option,
-                            questionIndex
-                          )}`}
-                          style={{ display: "inline" }}
-                        >
-                          {" "}
-                          {option}{" "}
-                          {getOptionStyle(question, option, questionIndex)}
-                        </p>
-                      </Radio>
-                    </CSSTransition>
-                  ))}
+                  <div className="options-container">
+  {question.options.map((option, optionIndex) => (
+    <Radio
+      className={`${styles.option}`}
+      key={optionIndex}
+      value={optionIndex}
+    >
+      <p
+        className={`${getCorrectOptionStyle(
+          question,
+          option,
+          questionIndex
+        )}`}
+      >
+        {" "}
+        {option} {getOptionStyle(question, option, questionIndex)}
+      </p>
+    </Radio>
+  ))}
+</div>
+
                 </Radio.Group>
                 {showResults[questionIndex] && (
                   <div>

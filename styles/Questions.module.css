@@ -101,7 +101,11 @@
   border-radius: 2px; /* Green color for correct option */
   padding: 2px;
 }
-
+.options-container {
+  display: flex;
+  align-items: center; /* Optional: Align options vertically within the container */
+  justify-content: start; /* Start-aligned content */
+}
 .imageContainer {
   display: flex;
   justify-content: center;
