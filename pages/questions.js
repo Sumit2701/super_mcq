@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Breadcrumb, Layout, Radio, Button, Card } from "antd";
-import { CSSTransition } from "react-transition-group";
+import {  Layout, Radio, Button, Card } from "antd";
 import styles from "../styles/Questions.module.css";
 import { Navbar } from "../components/Layouts";
 
@@ -185,12 +184,12 @@ const Questions = () => {
                 >
                   <div className="options-container">
   {question.options.map((option, optionIndex) => (
-    <Radio
+    <Radio style={{display:'flex'}}
       className={`${styles.option}`}
       key={optionIndex}
       value={optionIndex}
     >
-      <p
+      <p style={{paddingTop:'12px'}}
         className={`${getCorrectOptionStyle(
           question,
           option,
@@ -230,9 +229,7 @@ const Questions = () => {
               </Card>
             ))}
           </Content>
-          <Footer className={styles.footer}>
-            Ant Design ©2023 Created by Ant UED
-          </Footer>
+          
         </Layout>
       </div>
     </Navbar>

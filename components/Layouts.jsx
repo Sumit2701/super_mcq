@@ -28,20 +28,10 @@ export const Navbar = ({ children }) => {
             Super Quizer
           </Link>
         </Menu.Item>
-        <Menu.Item key='app' style={{ backgroundColor: '#BEAEE2' }}>
-          Navigation Two
-        </Menu.Item>
-        <Menu.Item key='SubMenu' style={{ backgroundColor: '#BEAEE2' }}>
-          Navigation Three - Submenu
-        </Menu.Item>
-        <SubMenu title='Navigation Four - Link' style={{ backgroundColor: '#BEAEE2' }}>
-          <Menu.Item key='setting:1'>Option 1</Menu.Item>
-          <Menu.Item key='setting:2'>Option 2</Menu.Item>
-          <Menu.Item key='setting:3'>Option 3</Menu.Item>
-          <Menu.Item key='setting:4'>Option 4</Menu.Item>
-        </SubMenu>
+       
+        
         <Menu.Item key='mail' style={{ backgroundColor: '#BEAEE2' }}>
-          navbar
+          
         </Menu.Item>
       </Menu>
       {children}
